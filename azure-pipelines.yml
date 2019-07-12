@@ -1,0 +1,16 @@
+# This pipeline is for the Pluralsight course "Implementing Azure DevOps Infrastructure"
+
+trigger:
+- master
+
+pool:
+ name: 'pluralsight-containers-linux'
+
+steps:
+- task: KubernetesManifest@0
+  displayName: 'Deploy to Kubernetes'
+  inputs:
+    action: deploy
+    kubernetesServiceConnection: 'Pluralsight AKS Cluster'
+    namespace: sock-shop
+    manifests: deploy/kubernetes/complete-demo.yaml
